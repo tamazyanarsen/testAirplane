@@ -1,0 +1,71 @@
+<div class="container">
+  <div *ngIf="!showForm">
+    <div *ngFor="let plane of planes">
+      <app-airplane [plane]="plane"></app-airplane>
+    </div>
+    <button class="btn btn-info" (click)="showAddForm()">Добавить</button>
+  </div>
+  <div class="edit-form" *ngIf="showForm">
+    <div class="row">
+      <h3 class="col-8">
+        Форма редактирования самолета с номером {{ currentPlane.number }}
+      </h3>
+      <button
+        class="col-2 btn btn-light cancel-edit-btn"
+        (click)="cancelEdit()"
+      >
+        Отмена
+      </button>
+    </div>
+    <form
+      [formGroup]="checkOutForm"
+      (ngSubmit)="
+        adding
+          ? createPlane(checkOutForm.value)
+          : changePlane(checkOutForm.value)
+      "
+    >
+      <input
+        placeholder="Код"
+        type="number"
+        formControlName="code"
+        class="form-control"
+      />
+      <br />
+      <input
+        placeholder="Тип"
+        type="text"
+        formControlName="type"
+        class="form-control"
+      /><br />
+      <input
+        placeholder="Номер"
+        type="number"
+        formControlName="number"
+        class="form-control"
+      /><br />
+      <input
+        placeholder="Модель"
+        type="text"
+        formControlName="model"
+        class="form-control"
+      /><br />
+      <input
+        placeholder="Дата выпуска"
+        type="date"
+        formControlName="date"
+        class="form-control"
+      /><br />
+      <div class="row">
+        <button class="btn btn-success" type="submit">Сохранить</button>
+        <button
+          *ngIf="!adding"
+          class="btn btn-danger"
+          (click)="delete(checkOutForm.value)"
+        >
+          Удалить
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
