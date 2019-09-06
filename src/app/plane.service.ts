@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaneService {
+  private itemsUrl = 'api/items';
   items = [
     {
       code: 1,
@@ -20,13 +23,15 @@ export class PlaneService {
       date: new Date().getDate()
     }
   ];
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   addItem(item) {
     this.items.push(item);
   }
-  getItems() {
-    return this.items;
+
+  getItems(): Observable<object[]> {
+    return this.http.get<object[]>(this.itemsUrl);
+    // return this.items;
   }
 
   changeItem(item) {

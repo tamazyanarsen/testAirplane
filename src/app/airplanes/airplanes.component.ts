@@ -24,7 +24,7 @@ export class AirplanesComponent implements OnInit {
     private planeService: PlaneService,
     private formBuilder: FormBuilder
   ) {
-    this.planes = this.planeService.getItems();
+    this.planeService.getItems().subscribe(e => (this.planes = e));
     this.updateFormModel();
   }
 
