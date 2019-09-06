@@ -37,9 +37,7 @@ export class PlaneService {
     this.items = [];
   }
   deleteItem(item) {
-    console.log(item);
     const index = this.items.findIndex(e => e.code === item.code);
     this.items.splice(index, 1);
-    console.log('new items', this.items);
   }
 }
